@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    tools:context=".Fragment.BaseRecordFragment">
+
+    <RelativeLayout
+        android:id="@+id/recd_frag_top"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/recd_frag_top_im"
+            android:src="@mipmap/ic_qita_fs"
+            android:layout_centerVertical="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp">
+        </ImageView>
+        <TextView
+            android:id="@+id/recd_frag_top_tv"
+            android:text="其它"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/recd_frag_top_im"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/recd_frag_top_et"
+            android:layout_alignParentRight="true"
+            android:inputType="number"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </EditText>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recd_frag_rlv"
+        android:layout_below="@id/recd_frag_top"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_above="@id/recd_frag_keyboardView"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/recd_frag_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2021年11月23日"
+            android:textSize="20sp">
+        </TextView>
+
+        <TextView
+            android:hint="备注"
+            android:id="@+id/recd_frag_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/recd_frag_time"
+            android:textSize="20sp"
+            >
+        </TextView>
+
+    </RelativeLayout>
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/recd_frag_keyboardView"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingTop="1dp"
+        android:shadowColor="@color/white"
+        android:shadowRadius="0.0"
+        >
+    </android.inputmethodservice.KeyboardView>
+
+
+
+</RelativeLayout>
