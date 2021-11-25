@@ -168,7 +168,6 @@ public class BaseRecordFragment extends Fragment implements View.OnClickListener
 
     }
 
-
     /**
      * 响应点击事件
      * @param view

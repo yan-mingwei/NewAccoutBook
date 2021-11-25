@@ -9,7 +9,7 @@
         </item>
 
         <item android:id="@+id/main_menu_item_account"
-            android:title="账单详情"
+            android:title="历史记录"
             android:icon="@drawable/ic_baseline_format_align_justify_24"
             >
         </item>

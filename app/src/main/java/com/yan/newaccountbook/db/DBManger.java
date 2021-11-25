@@ -94,6 +94,13 @@ public class DBManger {
         return total;
     }
 
+    /**
+     * 查询一天的记账记录
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     */
     public static List<AccountBean> getDayAccount(int year, int month, int day) {
         List<AccountBean> list=new ArrayList<>();
         String sql="select * from accounts where year=? and month=? and day=? order by id desc";
@@ -112,4 +119,115 @@ public class DBManger {
         return list;
     }
 
+    /**
+     * 删除一条记账记录
+     * @param accountBean
+     */
+    public static void delAccount(AccountBean accountBean) {
+        db.delete("accounts","id=?",new String[]{accountBean.getId() + ""});
+    }
+
+    public static List<AccountBean> findByRemark(String msg) {
+
+        List<AccountBean> list=new ArrayList<>();
+        String sql="select * from accounts where remark like ? order by id desc";
+        Cursor cursor=db.rawQuery(sql,new String[]{msg + ""});
+        while (cursor.moveToNext()){
+            @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+            @SuppressLint("Range") String typeName = cursor.getString(cursor.getColumnIndex("typeName"));
+            @SuppressLint("Range") String remark = cursor.getString(cursor.getColumnIndex("remark"));
+            @SuppressLint("Range") String time = cursor.getString(cursor.getColumnIndex("time"));
+            @SuppressLint("Range") int sImageId = cursor.getInt(cursor.getColumnIndex("sImageId"));
+            @SuppressLint("Range") int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            @SuppressLint("Range") float money = cursor.getFloat(cursor.getColumnIndex("money"));
+
+            @SuppressLint("Range") int year=cursor.getInt(cursor.getColumnIndex("year"));
+            @SuppressLint("Range") int month=cursor.getInt(cursor.getColumnIndex("month"));
+            @SuppressLint("Range") int day=cursor.getInt(cursor.getColumnIndex("day"));
+            AccountBean accountBean = new AccountBean(id, typeName, sImageId, remark, money, time, year, month, day, kind);
+            list.add(accountBean);
+        }
+        return list;
+    }
+
+    /**
+     * 查询所有支出 或 收入
+     * @param flag
+     * @return
+     */
+    public static List<AccountBean> findAccount(int flag) {
+        List<AccountBean> list=new ArrayList<>();
+        String sql="select * from accounts where  kind= ? order by id desc";
+        Cursor cursor=db.rawQuery(sql,new String[]{flag + ""});
+        while (cursor.moveToNext()){
+            @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+            @SuppressLint("Range") String typeName = cursor.getString(cursor.getColumnIndex("typeName"));
+            @SuppressLint("Range") String remark = cursor.getString(cursor.getColumnIndex("remark"));
+            @SuppressLint("Range") String time = cursor.getString(cursor.getColumnIndex("time"));
+            @SuppressLint("Range") int sImageId = cursor.getInt(cursor.getColumnIndex("sImageId"));
+            @SuppressLint("Range") int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            @SuppressLint("Range") float money = cursor.getFloat(cursor.getColumnIndex("money"));
+
+            @SuppressLint("Range") int year=cursor.getInt(cursor.getColumnIndex("year"));
+            @SuppressLint("Range") int month=cursor.getInt(cursor.getColumnIndex("month"));
+            @SuppressLint("Range") int day=cursor.getInt(cursor.getColumnIndex("day"));
+            AccountBean accountBean = new AccountBean(id, typeName, sImageId, remark, money, time, year, month, day, kind);
+            list.add(accountBean);
+        }
+        return list;
+    }
+
+    /**
+     * 查询当月记录
+     * @param flag
+     * @param year
+     * @param month
+     * @return
+     */
+    public static List<AccountBean> findAccount(int flag, int year, int month) {
+        List<AccountBean> list=new ArrayList<>();
+        String sql="select * from accounts where  kind= ? and year= ? and month = ? order by id desc";
+        Cursor cursor=db.rawQuery(sql,new String[]{flag + "", year + "", month + ""});
+        while (cursor.moveToNext()){
+            @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+            @SuppressLint("Range") String typeName = cursor.getString(cursor.getColumnIndex("typeName"));
+            @SuppressLint("Range") String remark = cursor.getString(cursor.getColumnIndex("remark"));
+            @SuppressLint("Range") String time = cursor.getString(cursor.getColumnIndex("time"));
+            @SuppressLint("Range") int sImageId = cursor.getInt(cursor.getColumnIndex("sImageId"));
+            @SuppressLint("Range") int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            @SuppressLint("Range") float money = cursor.getFloat(cursor.getColumnIndex("money"));
+
+            @SuppressLint("Range") int day=cursor.getInt(cursor.getColumnIndex("day"));
+            AccountBean accountBean = new AccountBean(id, typeName, sImageId, remark, money, time, year, month, day, kind);
+            list.add(accountBean);
+        }
+        return list;
+    }
+
+    /**
+     * 查询当年记录
+     * @param flag
+     * @param year
+     * @return
+     */
+    public static List<AccountBean> findAccount(int flag, int year) {
+        List<AccountBean> list=new ArrayList<>();
+        String sql="select * from accounts where  kind= ? and year= ?  order by id desc";
+        Cursor cursor=db.rawQuery(sql,new String[]{flag + "", year + ""});
+        while (cursor.moveToNext()){
+            @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+            @SuppressLint("Range") String typeName = cursor.getString(cursor.getColumnIndex("typeName"));
+            @SuppressLint("Range") String remark = cursor.getString(cursor.getColumnIndex("remark"));
+            @SuppressLint("Range") String time = cursor.getString(cursor.getColumnIndex("time"));
+            @SuppressLint("Range") int sImageId = cursor.getInt(cursor.getColumnIndex("sImageId"));
+            @SuppressLint("Range") int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            @SuppressLint("Range") float money = cursor.getFloat(cursor.getColumnIndex("money"));
+
+            @SuppressLint("Range") int month=cursor.getInt(cursor.getColumnIndex("month"));
+            @SuppressLint("Range") int day=cursor.getInt(cursor.getColumnIndex("day"));
+            AccountBean accountBean = new AccountBean(id, typeName, sImageId, remark, money, time, year, month, day, kind);
+            list.add(accountBean);
+        }
+        return list;
+    }
 }

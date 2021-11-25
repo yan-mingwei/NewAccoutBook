@@ -3,8 +3,11 @@ package com.yan.newaccountbook;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -130,8 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rlv_adapter.setOnClickListener(new main_rlv_adapter.OnClickListener() {
             @Override
             public void OnDelAccount(AccountBean accountBean) {
-                accountBeansList.remove(accountBean);
-                rlv_adapter.notifyDataSetChanged();
+                showDelDia(accountBean);
             }
         });
         rlv=findViewById(R.id.main_rlv);
@@ -140,6 +142,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rlv.setAdapter(rlv_adapter);
     }
 
+    /**
+     * 弹出删除警示框
+     */
+    private void showDelDia(AccountBean accountBean) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                accountBeansList.remove(accountBean);
+                DBManger.delAccount(accountBean);
+                rlv_adapter.notifyDataSetChanged();
+
+            }
+        });
+        builder.setNegativeButton("否", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
+    }
 
 
     /**
@@ -172,8 +196,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.main_menu_item_account:
-                        ToastUtil.show(MainActivity.this,"账单详情");
+                        ToastUtil.show(MainActivity.this,"历史记录");
                         drawerLayout.closeDrawers();
+                        Intent intent=new Intent(MainActivity.this,HistoryActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.main_menu_item_details:
                         ToastUtil.show(MainActivity.this,"账单统计");
@@ -218,6 +244,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case R.id.main_menu_item_search:
                         ToastUtil.show(MainActivity.this,"搜索");
+                        Intent intent=new Intent(MainActivity.this,SearchActivity.class);
+                        startActivity(intent);
                         break;
                     default:
                 }
@@ -258,6 +286,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             hideIv.setImageResource(R.mipmap.ih_show);
             isShow=true;
         }
-
     }
 }
