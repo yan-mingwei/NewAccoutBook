@@ -24,7 +24,7 @@ import java.util.List;
 public class recd_frag_rlv_adapter extends RecyclerView.Adapter<recd_frag_rlv_adapter.ViewHolder> {
 
     public interface OnClickListener{
-        public void onRefreshView(TypeBean typeBean,int pos);
+        void onRefreshView(TypeBean typeBean,int pos);
     }
 
     OnClickListener onClickListener;

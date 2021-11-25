@@ -25,6 +25,77 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <RelativeLayout
+                android:id="@+id/main_top_liLayout"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/main_top_tv1"
+                    android:text="本月支出"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:id="@+id/main_top_monthOut_tv"
+                    android:layout_below="@id/main_top_tv1"
+                    android:textColor="@color/black"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="￥ 0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <ImageView
+                    android:id="@+id/main_top_hide_iv"
+                    android:src="@mipmap/ih_show"
+                    android:layout_alignTop="@id/main_top_monthOut_tv"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ImageView>
+                <TextView
+                    android:id="@+id/main_top_tv2"
+                    android:text="本月收入"
+                    android:layout_below="@id/main_top_monthOut_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:id="@+id/main_top_monthIn_tv"
+                    android:layout_toRightOf="@id/main_top_tv2"
+                    android:layout_alignTop="@+id/main_top_tv2"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"
+                    android:text="￥ 0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+
+                <TextView
+                    android:id="@+id/main_top_today_tv"
+                    android:layout_below="@id/main_top_monthIn_tv"
+                    android:background="@color/gray"
+                    android:text="今日支出 ￥0 收入 ￥0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_rlv"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/main_top_liLayout"></androidx.recyclerview.widget.RecyclerView>
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/main_fab"
                 android:src="@android:drawable/ic_input_add"

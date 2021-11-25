@@ -13,6 +13,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String TYPE_TABLE_NAME="types";
     private static final String CREATE_TYPE_SQL="create table "+TYPE_TABLE_NAME+ "(id integer primary key autoincrement,typename varchar(10),imageId integer,sImageId integer,kind integer)";
 
+    private static final String ACCOUNT_TABLE_NAME="accounts";
+    private static final String CREATE_ACCOUNT_SQL="create table "+ACCOUNT_TABLE_NAME+ "(id integer primary key autoincrement,typeName varchar(10),sImageId integer,remark varchar(80),money float,time varchar(60),year integer,month integer,day integer,kind integer)";
 
     public DBOpenHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
@@ -26,6 +28,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TYPE_SQL);
         insertType(sqLiteDatabase);
+
+        //创建记录表
+        sqLiteDatabase.execSQL(CREATE_ACCOUNT_SQL);
     }
 
     /**

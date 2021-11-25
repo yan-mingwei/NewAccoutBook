@@ -25,6 +25,7 @@ import android.widget.TimePicker;
 
 import com.yan.newaccountbook.Adapter.recd_frag_rlv_adapter;
 import com.yan.newaccountbook.R;
+import com.yan.newaccountbook.bean.AccountBean;
 import com.yan.newaccountbook.bean.TypeBean;
 import com.yan.newaccountbook.dialog.RemarkDialog;
 import com.yan.newaccountbook.utils.CalToDate;
@@ -40,6 +41,7 @@ import java.util.List;
 
 public class BaseRecordFragment extends Fragment implements View.OnClickListener{
     ImageView typeIv;
+    int selTypeIgId;
     TextView typeTv;
     EditText moneyEt;
 
@@ -51,6 +53,8 @@ public class BaseRecordFragment extends Fragment implements View.OnClickListener
     KeyboardView keyboardView;
 
     Calendar cld;
+
+    AccountBean accountBean;
 
 
     @Override
@@ -102,7 +106,7 @@ public class BaseRecordFragment extends Fragment implements View.OnClickListener
             public void onRefreshView(TypeBean typeBean,int pos) {
                 typeIv.setImageResource(typeBean.getsImageId());
                 typeTv.setText(typeBean.getTypeName());
-
+                selTypeIgId=typeBean.getsImageId();
                 rlv_adapter.setPos(pos);
                 rlv_adapter.notifyDataSetChanged();
             }
@@ -116,8 +120,8 @@ public class BaseRecordFragment extends Fragment implements View.OnClickListener
      * 初始化时间
      */
     private void initTime() {
-        Calendar calendar=Calendar.getInstance();
-        timeTv.setText(CalToDate.trans(calendar));
+        cld=Calendar.getInstance();
+        timeTv.setText(CalToDate.trans(cld));
     }
     /**
      * 设置事件
@@ -140,11 +144,29 @@ public class BaseRecordFragment extends Fragment implements View.OnClickListener
             public void onEnsure() {
                 String moneyStr=moneyEt.getText().toString().trim();
                 ToastUtil.show(getContext(),moneyStr);
+                if (TextUtils.isEmpty(moneyStr) || moneyStr.equals("0")){
+                    getActivity().finish();
+                    return;
+                }
+                accountBean=new AccountBean();
+                accountBean.setMoney(Float.parseFloat(moneyStr));
+                accountBean.setTypeName(typeTv.getText().toString());
+                accountBean.setsImageId(selTypeIgId);
+                accountBean.setRemark(remarkTv.getText().toString());
+                accountBean.setTime(timeTv.getText().toString());
+                accountBean.setYear(cld.get(Calendar.YEAR));
+                accountBean.setMonth(cld.get(Calendar.MONTH)+1); //这样得到的月份会比实际小1
+                accountBean.setDay(cld.get(Calendar.DAY_OF_MONTH));
+
+                saveAccountToDB();
                 getActivity().finish();
             }
         });
     }
 
+    public void saveAccountToDB() {
+
+    }
 
 
     /**
@@ -163,7 +185,6 @@ public class BaseRecordFragment extends Fragment implements View.OnClickListener
 
             default:
         }
-
     }
 
     /**
@@ -174,7 +195,7 @@ public class BaseRecordFragment extends Fragment implements View.OnClickListener
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 cld=Calendar.getInstance();
-                cld.set(year,month+1,day);
+                cld.set(year,month,day);
                 showTimePick();
             }
 

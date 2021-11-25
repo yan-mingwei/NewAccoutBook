@@ -23,4 +23,11 @@ public class IncomeFragment extends BaseRecordFragment{
         typeTv.setText("其它");
         typeIv.setImageResource(R.mipmap.in_qt_fs);
     }
+
+    @Override
+    public void saveAccountToDB() {
+        super.saveAccountToDB();
+        accountBean.setKind(1);
+        DBManger.insertItemToAccountTB(accountBean);
+    }
 }

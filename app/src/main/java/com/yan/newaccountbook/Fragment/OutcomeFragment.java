@@ -20,4 +20,11 @@ public class OutcomeFragment extends BaseRecordFragment{
         typeTv.setText("其它");
         typeIv.setImageResource(R.mipmap.ic_qita_fs);
     }
+
+    @Override
+    public void saveAccountToDB() {
+        super.saveAccountToDB();
+        accountBean.setKind(0);
+        DBManger.insertItemToAccountTB(accountBean);
+    }
 }
